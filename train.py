@@ -112,7 +112,7 @@ if __name__ == "__main__":
         log_path,
         snapshots_folder,
     ) = train_directory_setup(
-        label, model_name, dataset, seq_seed, data_level, base_dir
+        label, model_name, dataset, seq_seed, data_level, base_dir, accent
     )
 
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")

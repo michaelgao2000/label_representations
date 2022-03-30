@@ -13,23 +13,24 @@ def train_directory_setup(
     seq_seed,
     data_level,
     base_dir,
+    accent="",
 ):
 
     base_dir = Path(base_dir)
     if data_level < 100:
-        base_folder = base_dir / "less/{}/level{}/seed{}/{}/model_{}".format(
-            dataset, data_level, seq_seed, model_name, label
+        base_folder = base_dir / "less/{}/level{}/seed{}/{}/model_{}{}".format(
+            dataset, data_level, seq_seed, model_name, label, accent
         )
         log_folder = base_dir / "less/log"
         log_path = os.path.join(
-            log_folder, "{}_less_data_{}_log.csv".format(dataset, label)
+            log_folder, "{}_less_data_{}{}_log.csv".format(dataset, label, accent)
         )
     else:
-        base_folder = base_dir / "{}/seed{}/{}/model_{}".format(
-            dataset, seq_seed, model_name, label
+        base_folder = base_dir / "{}/seed{}/{}/model_{}{}".format(
+            dataset, seq_seed, model_name, label, accent
         )
         log_folder = base_dir / "log"
-        log_path = os.path.join(log_folder, "{}_{}_log.csv".format(dataset, label))
+        log_path = os.path.join(log_folder, "{}_{}{}_log.csv".format(dataset, label, accent))
     snapshots_folder = os.path.join(base_folder, "snapshots")
 
     # Makes folders
