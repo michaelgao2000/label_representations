@@ -9,7 +9,7 @@ from pathlib import Path
 # Dataset for CIFAR10 and CIFAR100.
 class CIFARDataset(Dataset):
     # Initializes the dataset for the given datatype, label, and number of classes.
-    def __init__(self, data_dir, datatype, label, num_classes, label_root=None):
+    def __init__(self, data_dir, datatype, label, num_classes, label_root=None, accent=None):
         assert datatype in ("train", "test", "valid")
         assert ("category" in label) or (
             label
@@ -67,12 +67,19 @@ class CIFARDataset(Dataset):
 
         # Loads high-dimensional targets.
         if "category" not in label:
-            assert label_root is not None
-            self.mels = np.load(
-                Path(label_root)
-                / "cifar{}_{}.npy".format(self.num_classes, self.label)
-            )
-
+            if accent is None:
+                assert label_root is not None
+                self.mels = np.load(
+                    Path(label_root)
+                    / "cifar{}_{}.npy".format(self.num_classes, self.label)
+                )
+            else:
+                assert label_root is not None
+                self.mels = np.load(
+                    Path(label_root)
+                    / "cifar{}_accents_{}{}.npy".format(self.num_classes, self.label, self.accent)
+                )
+            
     def __getitem__(self, index):
         img, target = self.dataset.__getitem__(index)
         if "category" in self.label:
@@ -95,9 +102,10 @@ def get_train_loader(
     seq_seed,
     data_level=100,
     label_root=None,
+    accent=None
 ):
     trainset = CIFARDataset(
-        data_dir=data_dir, datatype="train", label=label, num_classes=num_classes, label_root=label_root
+        data_dir=data_dir, datatype="train", label=label, num_classes=num_classes, label_root=label_root, accent=accent
     )
     indices = list(range(len(trainset)))
     np.random.seed(seq_seed)
@@ -113,10 +121,10 @@ def get_train_loader(
 
 # Loads validation dataset where the data sequence is seeded by the given seed.
 def get_valid_loader(
-    data_dir, label, num_classes, num_workers, batch_size, seq_seed, label_root=None
+    data_dir, label, num_classes, num_workers, batch_size, seq_seed, label_root=None, accent=None
 ):
     validset = CIFARDataset(
-        data_dir=data_dir, datatype="valid", label=label, num_classes=num_classes, label_root=label_root
+        data_dir=data_dir, datatype="valid", label=label, num_classes=num_classes, label_root=label_root, accent=accent
     )
     indices = list(range(len(validset)))
     np.random.seed(seq_seed)
@@ -130,9 +138,9 @@ def get_valid_loader(
 
 
 # Loads test dataset without data shuffling.
-def get_test_loader(data_dir, label, num_classes, num_workers, batch_size, label_root=None):
+def get_test_loader(data_dir, label, num_classes, num_workers, batch_size, label_root=None, accent=None):
     testset = CIFARDataset(
-        data_dir=data_dir, datatype="test", label=label, num_classes=num_classes, label_root=label_root
+        data_dir=data_dir, datatype="test", label=label, num_classes=num_classes, label_root=label_root, accent=accent
     )
     return torch.utils.data.DataLoader(
         testset, batch_size=batch_size, shuffle=False, num_workers=num_workers

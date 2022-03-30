@@ -54,6 +54,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "--smoothing", type=float, default=0, help="Label smoothing level (default: 0)."
     )
+    parser.add_argument(
+        "--accent", type=str, required=False, help="Which accent"
+    )
 
     args = parser.parse_args()
     label = args.label
@@ -65,6 +68,7 @@ if __name__ == "__main__":
     label_dir = args.label_dir
     dataset = args.dataset
     smoothing = args.smoothing
+    accent = args.accent
 
     assert dataset in ("cifar10", "cifar100")
 
@@ -79,6 +83,14 @@ if __name__ == "__main__":
         "lowdim",
         "glove",
         "category",
+    )
+
+    assert accent in (
+        "american",
+        "australian",
+        "british",
+        "newzealand",
+        "southafrican",
     )
 
     if smoothing > 0:
@@ -110,13 +122,13 @@ if __name__ == "__main__":
 
     num_classes = int(dataset.split("cifar")[-1])
     trainloader = cifar.get_train_loader(
-        data_dir, label, num_classes, num_workers, 128, seq_seed, data_level, label_dir
+        data_dir, label, num_classes, num_workers, 128, seq_seed, data_level, label_dir, accent
     )
     validloader = cifar.get_valid_loader(
-        data_dir, label, num_classes, num_workers, 100, seq_seed, label_dir
+        data_dir, label, num_classes, num_workers, 100, seq_seed, label_dir, accent
     )
     testloader = cifar.get_test_loader(
-        data_dir, label, num_classes, num_workers, 100, label_dir
+        data_dir, label, num_classes, num_workers, 100, label_dir, accent
     )
 
     # Model setup
