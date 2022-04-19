@@ -28,6 +28,7 @@ class CIFARDataset(Dataset):
         assert num_classes in (10, 100)
         self.label = label
         self.num_classes = num_classes
+        self.accent = accent
 
         if datatype == "train":
             transform = transforms.Compose(
