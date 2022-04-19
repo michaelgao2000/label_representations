@@ -101,6 +101,7 @@ def train(model, trainloader, optimizer, criterion, device):
     model.train()
     train_loss = 0
     batch_count = 0
+    print(len(list(enumerate(trainloader))))
     for batch_idx, (inputs, targets) in enumerate(trainloader):
         inputs, targets = inputs.to(device), targets.to(device)
         optimizer.zero_grad()

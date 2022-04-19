@@ -55,7 +55,8 @@ if __name__ == "__main__":
         "--smoothing", type=float, default=0, help="Label smoothing level (default: 0)."
     )
     parser.add_argument(
-        "--accent", type=str, required=False, help="Which accent"
+        "--accent", type=str, required=False, help="Which accent",
+        default=None
     )
 
     args = parser.parse_args()
@@ -100,8 +101,8 @@ if __name__ == "__main__":
     if less_data:
         assert data_level < 90
     print(
-        "Start training {}% {} {} model with manual seed {} and model {}.".format(
-            data_level, dataset, label, seq_seed, model_name
+        "Start training {}% {} {} model with manual seed {} and model {} and accent {}.".format(
+            data_level, dataset, label, seq_seed, model_name, accent
         )
     )
 
@@ -119,7 +120,6 @@ if __name__ == "__main__":
     num_workers = 4
 
     # Loads train, validation, and test data
-
     num_classes = int(dataset.split("cifar")[-1])
     trainloader = cifar.get_train_loader(
         data_dir, label, num_classes, num_workers, 128, seq_seed, data_level, label_dir, accent
@@ -189,6 +189,7 @@ if __name__ == "__main__":
     # Trains model from epoch_start to epoch_stop
     for epoch in range(epoch_start, epoch_stop):
         new_train_loss = train(model, trainloader, optimizer, criterion, device)
+        print("train done")
         if "category" in label:
             new_valid_loss, new_valid_acc = valid_category(
                 model, validloader, criterion, device
