@@ -36,6 +36,7 @@ parser.add_argument(
     default="./labels/label_files",
 )
 parser.add_argument("--dataset", type=str, help="Dataset to train on")
+parser.add_argument("--accent", type=str, help="which accent")
 
 args = parser.parse_args()
 label = args.label
@@ -46,6 +47,7 @@ data_dir = args.data_dir
 base_dir = args.base_dir
 label_dir = args.label_dir
 dataset = args.dataset
+accent = args.accent
 assert label in (
     "speech",
     "uniform",
@@ -55,6 +57,13 @@ assert label in (
     "lowdim",
     "category",
     "bert",
+)
+assert accent in (
+    "american",
+    "australian",
+    "british",
+    "newzealand",
+    "southafrican",
 )
 assert model_name in ("vgg19", "resnet110", "resnet32")
 assert dataset in ("cifar10", "cifar100")
@@ -85,14 +94,14 @@ else:
 num_classes = int(dataset.split("cifar")[-1])
 
 print(
-    "Start attacking {} {} model (kNN) with manual seed {} and model {}.".format(
-        dataset, label, seq_seed, model_name
+    "Start attacking {} {} model (kNN) with manual seed {} and model {} and accent {}.".format(
+        dataset, label, seq_seed, model_name, accent
     )
 )
 
 # Directory setup
-base_folder = Path(base_dir) / "{}/seed{}/{}/model_{}".format(
-    dataset, seq_seed, model_name, label
+base_folder = Path(base_dir) / "{}/seed{}/{}/model_{}{}".format(
+    dataset, seq_seed, model_name, label, accent
 )
 best_model_file = "{}_seed{}_{}_best_model.pth".format(label, seq_seed, model_name)
 best_model_path = os.path.join(base_folder, best_model_file)
