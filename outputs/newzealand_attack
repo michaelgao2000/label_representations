@@ -1,0 +1,32 @@
+Test FGSM untargeted
+Epsilon: 0	Test Accuracy = 8362 / 10000 = 0.8362
+Epsilon: 0.05	Test Accuracy = 5399 / 10000 = 0.5399
+Epsilon: 0.1	Test Accuracy = 5053 / 10000 = 0.5053
+Epsilon: 0.15	Test Accuracy = 4754 / 10000 = 0.4754
+Epsilon: 0.2	Test Accuracy = 4364 / 10000 = 0.4364
+Epsilon: 0.25	Test Accuracy = 3812 / 10000 = 0.3812
+Epsilon: 0.3	Test Accuracy = 3199 / 10000 = 0.3199
+Test FGSM targeted
+Epsilon: 0	Test Accuracy = 8362 / 10000 = 0.8362
+Epsilon: 0.05	Test Accuracy = 3009 / 10000 = 0.3009
+Epsilon: 0.1	Test Accuracy = 2211 / 10000 = 0.2211
+Epsilon: 0.15	Test Accuracy = 1820 / 10000 = 0.182
+Epsilon: 0.2	Test Accuracy = 1571 / 10000 = 0.1571
+Epsilon: 0.25	Test Accuracy = 1385 / 10000 = 0.1385
+Epsilon: 0.3	Test Accuracy = 1206 / 10000 = 0.1206
+Test iterative untargeted
+Epsilon: 0	Test Accuracy = 8362 / 10000 = 0.8362
+Epsilon: 0.05	Test Accuracy = 4879 / 10000 = 0.4879
+Epsilon: 0.1	Test Accuracy = 4511 / 10000 = 0.4511
+Epsilon: 0.15	Test Accuracy = 4347 / 10000 = 0.4347
+Epsilon: 0.2	Test Accuracy = 4232 / 10000 = 0.4232
+Epsilon: 0.25	Test Accuracy = 4093 / 10000 = 0.4093
+Epsilon: 0.3	Test Accuracy = 3991 / 10000 = 0.3991
+Test iterative targeted
+Epsilon: 0	Test Accuracy = 8362 / 10000 = 0.8362
+Epsilon: 0.05	Test Accuracy = 3110 / 10000 = 0.311
+Epsilon: 0.1	Test Accuracy = 2242 / 10000 = 0.2242
+Epsilon: 0.15	Test Accuracy = 1890 / 10000 = 0.189
+Epsilon: 0.2	Test Accuracy = 1554 / 10000 = 0.1554
+Epsilon: 0.25	Test Accuracy = 1455 / 10000 = 0.1455
+Epsilon: 0.3	Test Accuracy = 1320 / 10000 = 0.132
